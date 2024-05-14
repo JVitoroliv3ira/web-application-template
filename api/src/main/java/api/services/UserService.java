@@ -21,15 +21,6 @@ public class UserService {
         return this.create(user);
     }
 
-    public User create(User user) {
-        user.setId(null);
-        return this.userRepository.save(user);
-    }
-
-    public void encodeUserPassword(User user) {
-        user.setPassword(this.encoderUtil.encode(user.getPassword()));
-    }
-
     public Boolean existsByEmail(String email) {
         return this.userRepository.existsByEmail(email);
     }
@@ -41,5 +32,14 @@ public class UserService {
                     HttpStatus.BAD_REQUEST
             );
         }
+    }
+
+    public void encodeUserPassword(User user) {
+        user.setPassword(this.encoderUtil.encode(user.getPassword()));
+    }
+
+    public User create(User user) {
+        user.setId(null);
+        return this.userRepository.save(user);
     }
 }
