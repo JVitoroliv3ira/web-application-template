@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public void validateEmailUniqueness(String email) throws ApiException {
-        if (Boolean.FALSE.equals(this.existsByEmail(email))) {
+        if (Boolean.TRUE.equals(this.existsByEmail(email))) {
             throw new ApiException(
                     EMAIL_NOT_UNIQUE_MESSAGE,
                     HttpStatus.BAD_REQUEST
