@@ -1,0 +1,16 @@
+<div #errorContainer *ngIf="errors.length > 0" class="bg-red-500 text-white p-4 rounded mt-2">
+  <div class="flex justify-between items-center mb-2">
+    <span>
+      <i class="fas fa-exclamation-circle mr-2"></i>
+      {{ errors.length === 1 ? 'Ocorreu 1 erro' : 'Ocorreram ' + errors.length + ' erros' }}
+    </span>
+    <button (click)="destroyComponent()" class="text-white focus:outline-none">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <ul class="list-disc ml-5 space-y-1">
+    <li *ngFor="let error of errors">
+      {{ error }}
+    </li>
+  </ul>
+</div>
