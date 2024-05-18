@@ -13,6 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: 'register',
+        title: 'Register - App',
         component: PageRegisterComponent
       }
     ]
