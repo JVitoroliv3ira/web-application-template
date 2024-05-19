@@ -1,6 +1,7 @@
 package api.settings;
 
 import api.dtos.responses.ResponseDTO;
+import api.exceptions.ApiException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -28,5 +29,18 @@ public class GlobalExceptionHandler {
                 ),
                 HttpStatus.BAD_REQUEST
         );
+    }
+
+    @ExceptionHandler(ApiException.class)
+    public ResponseEntity<ResponseDTO<Object>> handleApiException(ApiException ex) {
+        List<String> errors = List.of(ex.getMessage());
+
+        return ResponseEntity
+                .status(ex.getStatus())
+                .body(new ResponseDTO<>(
+                        null,
+                        null,
+                        errors
+                ));
     }
 }
