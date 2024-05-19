@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
+import { take } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { RegisterRequestDTO } from 'src/app/core/dtos/requests/register-request.dto';
+import { ApiResponseDTO } from 'src/app/core/dtos/responses/api-response.dto';
+import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-page-register',
@@ -10,10 +15,15 @@ export class PageRegisterComponent {
   public request: RegisterRequestDTO = {} as RegisterRequestDTO;
   public errors: string[] = []
 
+  constructor(
+    private authService: AuthenticationService,
+    private router: Router
+  ) {}
 
   public handleRegisterClick(): void {
     this.errors = [];
     this.validateRequest();
+    this.register();
   }
 
   private validateRequest(): void {
@@ -36,6 +46,24 @@ export class PageRegisterComponent {
     } else if (password.trim().length < 6) {
       this.errors.push('A senha deve conter pelo menos 6 caracteres.');
     }
+  }
+
+  public register(): void {
+    this.authService
+      .register(this.request)
+      .pipe(take(1))
+      .subscribe({
+        next: this.handleRegisterSuccess.bind(this),
+        error: this.handleRegisterError.bind(this)
+      })
+  }
+
+  public handleRegisterSuccess(res: ApiResponseDTO<any>): void {
+    this.router.navigateByUrl('/authentication/login');
+  }
+
+  public handleRegisterError(err: HttpErrorResponse): void {
+    this.errors = err.error.errors ?? ['Ocorreu um erro inesperado durante o cadastro.'];
   }
 
   public get formIsDisabled(): boolean {
