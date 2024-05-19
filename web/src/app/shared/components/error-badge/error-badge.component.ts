@@ -6,12 +6,4 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 })
 export class ErrorBadgeComponent {
   @Input() errors: string[] = [];
-
-  @ViewChild('errorContainer', { read: ElementRef }) errorContainer!: ElementRef;
-
-  destroyComponent() {
-    if (this.errorContainer) {
-      this.errorContainer.nativeElement.remove();
-    }
-  }
 }
