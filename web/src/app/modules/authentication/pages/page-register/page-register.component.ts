@@ -37,5 +37,11 @@ export class PageRegisterComponent {
       this.errors.push('A senha deve conter pelo menos 6 caracteres.');
     }
   }
+
+  public get formIsDisabled(): boolean {
+    const { name, email, password } = this.request;
+
+    return name === null || name === undefined || email === null || email === undefined || password === null || password === undefined;
+  }
 }
 

@@ -44,6 +44,7 @@
           </span>
         </div>
         <button
+          [disabled]="formIsDisabled"
           class="w-full rounded-sm p-3 text-sm text-white bg-slate-700 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-opacity-50 transition duration-200"
           (click)="handleRegisterClick()"
         >
