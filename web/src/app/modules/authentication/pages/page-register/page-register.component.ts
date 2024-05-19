@@ -60,8 +60,8 @@ export class PageRegisterComponent {
       })
   }
 
-  public handleRegisterSuccess(res: ApiResponseDTO<any>): void {
-    this.router.navigateByUrl('/authentication/login').then(() => this.toastService.success(res.message));
+  public handleRegisterSuccess(): void {
+    this.router.navigateByUrl('/authentication/login');
   }
 
   public handleRegisterError(err: HttpErrorResponse): void {

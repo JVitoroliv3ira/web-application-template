@@ -4,12 +4,14 @@ import { AuthenticationRoutingModule } from './authentication-routing.module';
 import { PageRegisterComponent } from './pages/page-register/page-register.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { PageLoginComponent } from './pages/page-login/page-login.component';
 
 
 
 @NgModule({
   declarations: [
-    PageRegisterComponent
+    PageRegisterComponent,
+    PageLoginComponent
   ],
   imports: [
     CommonModule,
