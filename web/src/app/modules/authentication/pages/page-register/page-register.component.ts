@@ -6,6 +6,7 @@ import { RegisterRequestDTO } from 'src/app/core/dtos/requests/register-request.
 import { ApiResponseDTO } from 'src/app/core/dtos/responses/api-response.dto';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-register',
@@ -17,7 +18,8 @@ export class PageRegisterComponent {
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastrService
   ) {}
 
   public handleRegisterClick(): void {
@@ -59,7 +61,7 @@ export class PageRegisterComponent {
   }
 
   public handleRegisterSuccess(res: ApiResponseDTO<any>): void {
-    this.router.navigateByUrl('/authentication/login');
+    this.router.navigateByUrl('/authentication/login').then(() => this.toastService.success(res.message));
   }
 
   public handleRegisterError(err: HttpErrorResponse): void {
