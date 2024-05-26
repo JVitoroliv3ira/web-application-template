@@ -3,10 +3,8 @@ import { take } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 
 import { RegisterRequestDTO } from 'src/app/core/dtos/requests/register-request.dto';
-import { ApiResponseDTO } from 'src/app/core/dtos/responses/api-response.dto';
 import { AuthenticationService } from 'src/app/core/services/authentication/authentication.service';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-page-register',
@@ -15,11 +13,11 @@ import { ToastrService } from 'ngx-toastr';
 export class PageRegisterComponent {
   public request: RegisterRequestDTO = {} as RegisterRequestDTO;
   public errors: string[] = []
+  public loading = false;
 
   constructor(
     private authService: AuthenticationService,
-    private router: Router,
-    private toastService: ToastrService
+    private router: Router
   ) {}
 
   public handleRegisterClick(): void {
@@ -51,6 +49,7 @@ export class PageRegisterComponent {
   }
 
   public register(): void {
+    this.loading = true;
     this.authService
       .register(this.request)
       .pipe(take(1))
@@ -61,10 +60,12 @@ export class PageRegisterComponent {
   }
 
   public handleRegisterSuccess(): void {
+    this.loading = false;
     this.router.navigateByUrl('/authentication/login');
   }
 
   public handleRegisterError(err: HttpErrorResponse): void {
+    this.loading = false;
     this.errors = err.error.errors ?? ['Ocorreu um erro inesperado durante o cadastro.'];
   }
 
