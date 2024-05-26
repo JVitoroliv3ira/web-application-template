@@ -1,0 +1,6 @@
+<footer class="w-full h-20 flex justify-end items-center p-3 bg-white">
+  <div class="py-3">
+    <span *ngIf="version !== null" class="text-sm">{{ version }}</span>
+    <div *ngIf="version === null" class="h-8 bg-gray-300 rounded w-24 animate-pulse"></div>
+  </div>
+</footer>
