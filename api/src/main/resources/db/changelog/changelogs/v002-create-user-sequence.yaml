@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: v002-1-create-user-sequence
+      context: ddl
+      author: Joao Vitor de Oliveira Santos
+      changes:
+        - createSequence:
+            schemaName: application
+            sequenceName: sq_user
+            startValue: 1
+            incrementBy: 1
