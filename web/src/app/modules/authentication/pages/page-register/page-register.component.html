@@ -43,11 +43,16 @@
         </span>
       </div>
       <button
-        [disabled]="formIsDisabled"
-        class="w-full rounded-sm p-3 text-sm text-white bg-slate-700 hover:bg-slate-800 transition duration-200 disabled:cursor-not-allowed disabled:bg-slate-400"
+        [disabled]="formIsDisabled || loading"
+        class="w-full rounded-sm p-3 text-sm text-white bg-slate-700 hover:bg-slate-800 transition duration-200 disabled:cursor-not-allowed disabled:bg-slate-400 flex items-center justify-center"
         (click)="handleRegisterClick()"
       >
-        Cadastre-se
+        <ng-container *ngIf="!loading; else loadingTemplate">
+          Cadastre-se
+        </ng-container>
+        <ng-template #loadingTemplate>
+          <img src="assets/loading.svg" alt="Loading" class="loading-icon">
+        </ng-template>
       </button>
     </form>
     <app-error-badge [errors]="errors" />
